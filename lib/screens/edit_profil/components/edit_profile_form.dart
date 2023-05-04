@@ -102,11 +102,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
     });
   }
 
-  Future<void> openDialog() async {
+  Future<void> openDialog(BuildContext ctx) async {
  
     switch (await showDialog(
-      context: context,
-      builder: (BuildContext context) => SimpleDialog(
+      context: ctx,
+      builder: (ctx) => SimpleDialog(
         children: [
           Container(
               height: 260,
@@ -128,9 +128,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     child: DefaultButton(
                       text: "Ok",
                       press: () {  
-                        print("ca a cliqué");
-                       Provider.of<AppStateManager>(context, listen: true)
-                          .loginSucess();
+                           Navigator.pop(ctx);
                       },
                       //=> Navigator.pop(context, true),
                     ),
@@ -193,9 +191,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   'addressLiv': addressLivController.text,
                   'genre': genreController.text
                 });
-                if (resp?.status == 200) {
-                 
-                  openDialog();
+                if (resp?.status == 200 ) {
+                 //Provider.of<AppStateManager>(context, listen: false)
+                   //       .loginFalse();
+                        
+                  openDialog(context);
                  // setLoading();
                 }
               }

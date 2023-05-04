@@ -6,6 +6,8 @@ import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/abstract_product_dao.dart';
 
+import '../firestoreService/userService.dart';
+
 class ProductDAO extends AbsProductDAO {
   final CollectionReference productCollection =
       FirebaseFirestore.instance.collection('productList');
@@ -17,6 +19,11 @@ class ProductDAO extends AbsProductDAO {
       FirebaseFirestore.instance.collection('commandes');
   final FirebaseAuth auth = FirebaseAuth.instance;
   double amount = 0.0;
+
+
+
+
+ 
 
   @override
   Future<List<Product>> getAllProduct() async {
