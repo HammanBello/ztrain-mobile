@@ -150,9 +150,11 @@ class _SignUpFormState extends State<SignUpForm> {
       obscureText: isObscure,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
+        print(value);
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         } else if (!passwordRegex.hasMatch(value)) {
+          
           removeError(error: kShortPassError);
         }
         password = value;

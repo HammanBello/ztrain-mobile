@@ -22,13 +22,15 @@ class _HomeHeaderState extends State<HomeHeader> {
 
   final Stream<QuerySnapshot> productCart = ProductDAO().getCountProductCart();
   final FirebaseAuth auth = FirebaseAuth.instance;
- String lastname = 'Inconnu' ;
- String genre = 'Monsieur' ;
+ String lastname ;
+ String genre;
+ String svgSource;
+ User user;
 
   @override
   void initState() {
     super.initState();
-    final user = auth.currentUser;
+    user = auth.currentUser;
     setName(user);
   }
 
@@ -39,14 +41,13 @@ class _HomeHeaderState extends State<HomeHeader> {
         lastname = resp.lastName;
         genre = resp.genre;
       }
-      
     });
   }
 
   @override
   Widget build(BuildContext context) {
      final AppStateManager appStateManager =
-        Provider.of<AppStateManager>(context, listen: false);
+        Provider.of<AppStateManager>(context);
     return StreamBuilder<QuerySnapshot>(
       stream: productCart,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -64,7 +65,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   IconBtnWithCounterActive(
-                svgSrc: genre == 'Monsieur' ?  "assets/icons/man-user-svgrepo-com.svg" : "assets/icons/woman-user-svgrepo-com.svg" ,
+                svgSrc: appStateManager.svgSrc,
                 // numOfitem:
                 //     snapshot.data == null ? 0 : snapshot.data.docs.length,
                 // numOfitem:

@@ -66,7 +66,7 @@ class _SearchFieldState extends State<SearchField> {
   Widget build(BuildContext context) {
     menu();
     final AppStateManager appStateManager =
-        Provider.of<AppStateManager>(context, listen: false);
+        Provider.of<AppStateManager>(context);
     return Container(
       width: SizeConfig.screenWidth * 0.2,
       
@@ -100,7 +100,7 @@ class _SearchFieldState extends State<SearchField> {
         value: def,
         elevation: 10,
         items: list,
-        hint : Text(lastname, style: TextStyle(color: Colors.black),), 
+        hint : Text(appStateManager.lastname, style: TextStyle(color: Colors.black),), 
         underline: SizedBox(),
         iconSize: 0.0,
         onChanged: (value){

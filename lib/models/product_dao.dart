@@ -6,6 +6,8 @@ import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/abstract_product_dao.dart';
 
+import '../firestoreService/userService.dart';
+
 class ProductDAO extends AbsProductDAO {
   final CollectionReference productCollection =
       FirebaseFirestore.instance.collection('productList');
@@ -17,6 +19,11 @@ class ProductDAO extends AbsProductDAO {
       FirebaseFirestore.instance.collection('commandes');
   final FirebaseAuth auth = FirebaseAuth.instance;
   double amount = 0.0;
+
+
+
+
+ 
 
   @override
   Future<List<Product>> getAllProduct() async {
@@ -216,6 +223,7 @@ class ProductDAO extends AbsProductDAO {
   Future<void> addToCommande() async {
     final User user = auth.currentUser;
     final uid = user.uid;
+    final String numFacture = "NF" + Random().nextInt(1000).toString();
 
     await cartCollection.where('userId', isEqualTo: uid).get().then((value) {
       print(value.docs.length);
@@ -227,6 +235,7 @@ class ProductDAO extends AbsProductDAO {
             'products': value.docs.map<Object>((e) => e.data()).toList(),
             'date': DateTime.now(),
             'status': "En cours de livraison",
+            'facture': numFacture,
           })
           .then((value) => {print('Cart Added')})
           .catchError((error) => {print('Failed to add cartd')});
