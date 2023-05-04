@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/screens/cart/components/empty_cart.dart';
 import 'package:shop_app/screens/commandes/commandes_screen.dart';
+import 'package:shop_app/screens/home/components/recherche_field.dart';
 
 import '../../constants.dart';
 import '../../models/commande_model.dart';
@@ -28,9 +29,30 @@ class _BodyState extends State<Body> {
   final Stream<QuerySnapshot> _commandeStream =
       ProductDAO().getCommandeProdStream();
   List<Commande> commadesPRoducts = [];
+  List _resultList = [];
+  
   @override
   Widget build(BuildContext context) {
-    ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
+    // ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
+
+
+
+void _searchFournisseurData(String textSearch) async {
+   if(textSearch == ""){
+    setState(() {
+      _resultList.clear();
+    });
+   }else {
+    for (var i = 0; i < commadesPRoducts.length; i++) {
+      if (commadesPRoducts[i].facture == textSearch) {
+        setState(() {
+        _resultList.add(commadesPRoducts[i]);
+        });
+      }
+    }
+   }
+  }
+
 
     return StreamBuilder<QuerySnapshot>(
         stream: _commandeStream,
@@ -50,7 +72,9 @@ class _BodyState extends State<Body> {
                   userId: doc['userId'],
                   date: doc['date'],
                   productlist: doc['products'],
-                  status: doc['status']);
+                  status: doc['status'],
+                  facture: doc['facture'],
+                  );
               commadesPRoducts.add(com);
             });
           }
@@ -59,41 +83,25 @@ class _BodyState extends State<Body> {
               ? Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: getProportionateScreenWidth(20)),
-                  child: ListView.builder(
-                    itemCount: commadesPRoducts.length,
-                    itemBuilder: (context, index) {
-                      print(commadesPRoducts[index].id);
-                      return ListTile(
-                        title: Dismissible(
-                          key: UniqueKey(),
-                          direction: DismissDirection.endToStart,
-                          // onDismissed: (direction) {
-                          //   productDAO.setIsFavorite(
-                          //       commadesPRoducts[index].productlist.);
-                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //       content: Text(
-                          //           'vous avez retiré ce produit de vos favoris')));
-                          // },
-                          background: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFE6E6),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Row(
-                              children: [
-                                Spacer(),
-                                SvgPicture.asset("assets/icons/Trash.svg"),
-                              ],
-                            ),
-                          ),
-                          child: Display_com(
-                            commandeProduct: commadesPRoducts[index],
-                            indice : index,
+                  child: Container(
+                    height: SizeConfig.screenHeight,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        RechercheField(searching: _searchFournisseurData,),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount:_resultList.length > 0 ? _resultList.length : commadesPRoducts.length,
+                            itemBuilder: (context, index) {
+                              print(commadesPRoducts[index].id);
+                              return Display_com(
+                                    commandeProduct: _resultList.length > 0 ? _resultList[index] : commadesPRoducts[index],
+                                  );
+                            },
                           ),
                         ),
-                      );
-                    },
+                      ],
+                    ),
                   ),
                 )
               : EmptyCommande();

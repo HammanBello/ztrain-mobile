@@ -216,6 +216,7 @@ class ProductDAO extends AbsProductDAO {
   Future<void> addToCommande() async {
     final User user = auth.currentUser;
     final uid = user.uid;
+    final String numFacture = "NF" + Random().nextInt(1000).toString();
 
     await cartCollection.where('userId', isEqualTo: uid).get().then((value) {
       print(value.docs.length);
@@ -227,6 +228,7 @@ class ProductDAO extends AbsProductDAO {
             'products': value.docs.map<Object>((e) => e.data()).toList(),
             'date': DateTime.now(),
             'status': "En cours de livraison",
+            'facture': numFacture,
           })
           .then((value) => {print('Cart Added')})
           .catchError((error) => {print('Failed to add cartd')});

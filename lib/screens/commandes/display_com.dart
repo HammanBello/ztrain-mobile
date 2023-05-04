@@ -12,8 +12,7 @@ import '../../size_config.dart';
 
 class Display_com extends StatefulWidget {
   final Commande commandeProduct;
-  final int indice;
-  const Display_com({Key key, this.commandeProduct, this.indice})
+  const Display_com({Key key, this.commandeProduct,})
       : super(key: key);
 
   @override
@@ -49,7 +48,7 @@ class _Display_comState extends State<Display_com> {
         : ListTile(
             leading: Image.network(product.images[0]),
             title: Text(
-              "Numéro de facture : " + widget.indice.toString(),
+              "Numéro de facture : " + widget.commandeProduct.facture,
               overflow: TextOverflow.ellipsis,
             ),
             // trailing:

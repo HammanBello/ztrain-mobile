@@ -7,7 +7,8 @@ import 'package:shop_app/constants.dart';
 import '../../../size_config.dart';
 
 class RechercheField extends StatelessWidget {
-  const RechercheField({Key key, double height}) : super(key: key);
+  final void Function(String val) searching;
+   const RechercheField({Key key, double height, this.searching}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class RechercheField extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
-        onChanged: (value) => print(value),
+        onChanged: (value) => searching(value),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(20),
