@@ -15,8 +15,8 @@ class  AppStateManager extends ChangeNotifier {
   bool _displayModifyProfil = false;
   bool _onCreatingAccount = false;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  String _svgSrc;
-  String _lastname;
+  String _svgSrc = "assets/icons/man-user-svgrepo-com.svg";
+  String _lastname = "Inconnu";
 
   bool get isLogin => _isLogin;
   int  get selectTab => _selectedTab;
@@ -28,10 +28,12 @@ class  AppStateManager extends ChangeNotifier {
   bool get displayCommandes => _displayCommandes;
   bool get onCreatingAccout => _onCreatingAccount;
   String get svgSrc {
+    
     setName(); 
     return _svgSrc;
     }
   String get lastname {
+    
     setName(); 
     return _lastname;
     }
