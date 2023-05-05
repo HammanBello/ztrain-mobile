@@ -9,11 +9,12 @@ import 'package:shop_app/helper/response.dart';
 import 'package:passwordfield/passwordfield.dart';
 import 'package:shop_app/models/User.dart';
 import 'package:select_form_field/select_form_field.dart';
-
+import '../components/body.dart';
 import '../../../constants.dart';
 import '../../../models/app_state_manager.dart';
 import '../../../models/app_tab.dart';
 import '../../../size_config.dart';
+import '../../home/home_screen.dart';
 
 class EditProfileForm extends StatefulWidget {
   @override
@@ -64,15 +65,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
     });
   }
 
-  
-
   @override
   void initState() {
     super.initState();
     final user = auth.currentUser;
     setState(() {
       userId = user.uid;
-      
     });
     loadProfil(userId);
   }
@@ -89,8 +87,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
     super.dispose();
   }
 
-   loadProfil(userId) async {
-    final resp = await getUser(userId) ;
+  loadProfil(userId) async {
+    final resp = await getUser(userId);
     setState(() {
       lastNameController.text = resp.lastName;
       phoneNumberController.text = resp.phoneNumber;
@@ -103,7 +101,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
   }
 
   Future<void> openDialog(BuildContext ctx) async {
- 
     switch (await showDialog(
       context: ctx,
       builder: (ctx) => SimpleDialog(
@@ -124,11 +121,23 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     child: Text('Votre compte a été mofifié avec succès'),
                   ),
                   SizedBox(
-                   // margin: EdgeInsets.only(top: 30),
+                    // margin: EdgeInsets.only(top: 30),
                     child: DefaultButton(
                       text: "Ok",
-                      press: () {  
-                           Navigator.pop(ctx);
+                      press: () {
+                        print("ca a cliqué");
+                        Navigator.pop(ctx);
+                        // Navigator.pop(context, true);
+                        // Provider.of<AppStateManager>(context, listen: true)
+                        //     .loginSucess();
+                        Provider.of<AppStateManager>(context, listen: false)
+                            .setModifyPlofil(false);
+                        Provider.of<AppStateManager>(context, listen: false)
+                            .goToTab(AppTab.home);
+                        // Navigator.pushReplacementNamed(
+                        //   context,
+                        //   "/home",
+                        // );
                       },
                       //=> Navigator.pop(context, true),
                     ),
@@ -138,6 +147,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
         ],
       ),
     )) {
+      
     }
   }
 
@@ -163,7 +173,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
           buildAddressLivraisonFormField(addressLiv),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildgenderFormField(),
-         
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
@@ -171,8 +180,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
             isLoading: isLoading,
             press: () async {
               setLoading();
-              
-              if(newpwdController.text.isNotEmpty){user.updatePassword(newpwdController.text);}
+
+              if (newpwdController.text.isNotEmpty) {
+                user.updatePassword(newpwdController.text);
+              }
               if (_formKey.currentState.validate()) {
                 Response resp = await updateProfil(userId, {
                   // 'id': userId,
@@ -191,12 +202,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   'addressLiv': addressLivController.text,
                   'genre': genreController.text
                 });
-                if (resp?.status == 200 ) {
-                 //Provider.of<AppStateManager>(context, listen: false)
-                   //       .loginFalse();
-                        
+                if (resp?.status == 200) {
+                  //Provider.of<AppStateManager>(context, listen: false)
+                  //       .loginFalse();
+
                   openDialog(context);
-                 // setLoading();
+                  // setLoading();
                 }
               }
               setLoading();
@@ -228,7 +239,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "Adresse",
-        hintText:  "Entrez l'adresse",
+        hintText: "Entrez l'adresse",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -259,7 +270,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "Adresse de facturation",
-        hintText:  "Entrez l'adresse de facturation",
+        hintText: "Entrez l'adresse de facturation",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -290,7 +301,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "Adresse de livraison",
-        hintText:  "Entrez l'adresse de livraison",
+        hintText: "Entrez l'adresse de livraison",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -303,7 +314,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
   TextFormField buildPhoneNumberFormField(phone) {
     return TextFormField(
       controller: phoneNumberController,
-     // initialValue: phone,
+      // initialValue: phone,
       keyboardType: TextInputType.phone,
       onSaved: (newValue) => phoneNumber = newValue,
       onChanged: (value) => setState(() {
@@ -321,7 +332,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
         // if (value.isEmpty) {
         //   addError(error: "Entrez un numéro de téléphone");
         //   return "";
-        // } else 
+        // } else
         if (!numtelValidatorRegExp.hasMatch(value)) {
           addError(error: "Certaines valeurs ne sont pas valides");
           return "";
@@ -335,7 +346,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
   TextFormField buildLastNameFormField(lastNameValue) {
     return TextFormField(
       controller: lastNameController,
-     // initialValue: lastNameValue,
+      // initialValue: lastNameValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           setState(() {
@@ -358,9 +369,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "Prénom",
-        hintText:  "Entrez le prénom",
+        hintText: "Entrez le prénom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly 
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
@@ -370,11 +381,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
   TextFormField buildfirstNameFormField(name) {
     return TextFormField(
       controller: firstNameController,
-     // initialValue: name,
+      // initialValue: name,
       onChanged: (value) {
         if (value.isNotEmpty) {
           setState(() {
-             firstName = value;
+            firstName = value;
           });
           removeError(error: kNamelNullError);
         }
@@ -393,9 +404,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "Nom",
-        hintText:  "Entrez le nom",
+        hintText: "Entrez le nom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly 
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
@@ -406,11 +417,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
     return TextFormField(
       controller: newpwdController,
       obscureText: !_obscureText,
-     // initialValue: name,
+      // initialValue: name,
       onChanged: (value) {
         if (value.isNotEmpty) {
           setState(() {
-             firstName = value;
+            firstName = value;
           });
           removeError(error: kNamelNullError);
         }
@@ -420,27 +431,22 @@ class _EditProfileFormState extends State<EditProfileForm> {
         // if (value.isEmpty) {
         //   //addError(error: "le champ nom est vide");
         //   return "";
-        // } else 
+        // } else
         if (value.isNotEmpty & !passwordRegex.hasMatch(value)) {
           addError(error: kShortPassError);
           return "";
         }
 
-        if(value.isNotEmpty)
-        newpwdController.text = value;
+        if (value.isNotEmpty) newpwdController.text = value;
         return null;
       },
-      decoration: 
-      
-      
-      InputDecoration(
-        
+      decoration: InputDecoration(
         labelText: "Nouveau mot de passe",
         hintText: "Entrez le nouveau mot de passe",
         // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly 
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        
+
         suffixIcon: new GestureDetector(
           onTap: () {
             setState(() {
@@ -448,7 +454,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
             });
           },
           child:
-          new Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+              new Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
         ),
       ),
     );
@@ -456,16 +462,14 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
 // ignore: non_constant_identifier_names
 
-
-DropdownButtonFormField buildgenderFormField() {
-  final name = genreController.text ;
+  DropdownButtonFormField buildgenderFormField() {
+    final name = genreController.text;
     return DropdownButtonFormField(
-        
-     // initialValue: name,
+      // initialValue: name,
       onChanged: (value) {
         if (value.isNotEmpty) {
           setState(() {
-             genreController.text = value;
+            genreController.text = value;
           });
           removeError(error: kNamelNullError);
         }
@@ -482,33 +486,29 @@ DropdownButtonFormField buildgenderFormField() {
         //newpwdController.text = value;
         return null;
       },
-      
-      decoration:
-      InputDecoration(
-        
+
+      decoration: InputDecoration(
         labelText: "Genre",
-        hintText: name != null ? name : "Choisissez votre genre" ,
-        
+        hintText: name != null ? name : "Choisissez votre genre",
+
         // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly 
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        
-       //suffixIcon:  CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ), items: <String>['Monsieur', 'Madame'].map<DropdownMenuItem<String>>((String value) {
-    return DropdownMenuItem<String>(
-      value: value,
-      child: Text(
-        value,
-        style: TextStyle(fontSize: 20),
+
+        //suffixIcon:  CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
-    );
-  }).toList(),
+      items: <String>['Monsieur', 'Madame']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 20),
+          ),
+        );
+      }).toList(),
     );
   }
 
-
-
-bool _obscureText = false;
-
-
+  bool _obscureText = false;
 }
