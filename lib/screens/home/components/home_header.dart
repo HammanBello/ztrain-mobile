@@ -22,10 +22,10 @@ class _HomeHeaderState extends State<HomeHeader> {
 
   final Stream<QuerySnapshot> productCart = ProductDAO().getCountProductCart();
   final FirebaseAuth auth = FirebaseAuth.instance;
- String lastname ;
- String genre;
- String svgSource;
- User user;
+  String lastname;
+  String genre;
+  String svgSource;
+  User user;
 
   @override
   void initState() {
@@ -35,9 +35,9 @@ class _HomeHeaderState extends State<HomeHeader> {
   }
 
   setName(user) async {
-    final resp = await getUser(user.uid) ; 
+    final resp = await getUser(user.uid);
     setState(() {
-      if(resp.lastName.isNotEmpty){
+      if (resp.lastName.isNotEmpty) {
         lastname = resp.lastName;
         genre = resp.genre;
       }
@@ -46,7 +46,7 @@ class _HomeHeaderState extends State<HomeHeader> {
 
   @override
   Widget build(BuildContext context) {
-     final AppStateManager appStateManager =
+    final AppStateManager appStateManager =
         Provider.of<AppStateManager>(context);
     return StreamBuilder<QuerySnapshot>(
       stream: productCart,
@@ -58,38 +58,38 @@ class _HomeHeaderState extends State<HomeHeader> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              SizedBox(width: getProportionateScreenWidth(40)),
+              SizedBox(width: getProportionateScreenWidth(10)),
               SearchField(),
+              SizedBox(width: getProportionateScreenWidth(10)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   IconBtnWithCounterActive(
-                svgSrc: appStateManager.svgSrc,
-                // numOfitem:
-                //     snapshot.data == null ? 0 : snapshot.data.docs.length,
-                // numOfitem:
-                //      0,
-                press: () {
-                   appStateManager.setModifyPlofil(true);
-                },
+                    svgSrc: appStateManager.svgSrc,
+                    // numOfitem:
+                    //     snapshot.data == null ? 0 : snapshot.data.docs.length,
+                    // numOfitem:
+                    //      0,
+                    press: () {
+                      appStateManager.setModifyPlofil(true);
+                    },
+                  ),
+                  SizedBox(width: getProportionateScreenWidth(10)),
+                  IconBtnWithCounter(
+                    svgSrc: "assets/icons/Cart Icon.svg",
+                    numOfitem:
+                        snapshot.data == null ? 0 : snapshot.data.docs.length,
+                    press: () {
+                      // Provider.of<AppStateManager>(context, listen: false)
+                      //     .setDisplayProduct(false);
+                      Provider.of<AppStateManager>(context, listen: false)
+                          .goToCart();
+                      // Navigator.pushNamed(context, CartScreen.routeName);
+                    },
+                  ),
+                ],
               ),
-              SizedBox(width: getProportionateScreenWidth(10)),
-                  IconBtnWithCounter( 
-                svgSrc: "assets/icons/Cart Icon.svg",
-                numOfitem:
-                    snapshot.data == null ? 0 : snapshot.data.docs.length,
-                press: () {
-                  // Provider.of<AppStateManager>(context, listen: false)
-                  //     .setDisplayProduct(false);
-                  Provider.of<AppStateManager>(context, listen: false)
-                      .goToCart();
-                  // Navigator.pushNamed(context, CartScreen.routeName);
-                },
-              ),
-              
-              ],),  
-               
             ],
           ),
         );

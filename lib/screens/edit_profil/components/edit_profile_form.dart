@@ -411,8 +411,17 @@ class _EditProfileFormState extends State<EditProfileForm> {
         if (value.isEmpty) {
           addError(error: "le champ prénom est vide");
           return "";
-        } else if (!wordValidatorRegExp.hasMatch(value)) {
+        } else if (!lastNameValidatorRegExp.hasMatch(value)) {
           addError(error: "Certaines valeurs ne sont pas valides");
+          return "";
+        }
+        if (value.length > 20) {
+          addError(error: "Le champs prenom est limité à 20 caractères");
+          return "";
+        }
+        if (RevertlastNameValidatorRegExp.hasMatch(value)) {
+          addError(
+              error: "Le champs prenom ne prends pas de caractères numériques");
           return "";
         }
         lastNameController.text = value;
