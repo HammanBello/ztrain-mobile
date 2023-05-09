@@ -388,6 +388,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
           addError(error: "Certaines valeurs ne sont pas valides");
           return "";
         }
+        if (RevertnumtelValidatorRegExp.hasMatch(value)) {
+          addError(error: "Les caractères spéciaux ne sont pas permis pour le numéro de téléphone");
+          return "";
+        }
         phoneNumberController.text = value;
         return null;
       },
