@@ -226,77 +226,77 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
-  CountryStatePicker buildAddressFormField(ct) {
-    // return TextFormField(
-    //   controller: addressController,
-    //   //initialValue: addressValue,
-    //   onSaved: (newValue) => addressController.text = newValue,
-    //   onChanged: (value) => setState(() {
-    //     address = value;
-    //   }),
-    //   validator: (value) {
-    //     if (value.isEmpty) {
-    //       addError(error: " le champ adresse est vide");
-    //       return "";
-    //     } else if (!wordValidatorRegExp.hasMatch(value)) {
-    //       addError(error: "Certaines valeurs ne sont pas valides");
-    //       return "";
-    //     }
-    //     addressController.text = value;
-    //     return null;
-    //   },
-    //   decoration: InputDecoration(
-    //     labelText: "Adresse",
-    //     hintText: "Entrez l'adresse",
-    //     // If  you are using latest version of flutter then lable text and hint text shown like this
-    //     // if you r using flutter less then 1.20.* then maybe this is not working properly
-    //     floatingLabelBehavior: FloatingLabelBehavior.always,
-    //     suffixIcon:
-    //         CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
-    //   ),
-    // );
-
-
-    return  CountryStatePicker(
-    countryLabel: Text(""),
-    stateLabel: Text(""),
-            onCountryChanged: (ct) => setState(() {
-             addressController.text = ct;
-            country = ct;
-            if (ct.isEmpty) {
+  TextFormField buildAddressFormField(ct) {
+    return TextFormField(
+      controller: addressController,
+      //initialValue: addressValue,
+      onSaved: (newValue) => addressController.text = newValue,
+      onChanged: (value) => setState(() {
+        address = value;
+      }),
+      validator: (value) {
+        if (value.isEmpty) {
           addError(error: " le champ adresse est vide");
           return "";
-        } else if (!wordValidatorRegExp.hasMatch(ct)) {
+        } else if (!wordValidatorRegExp.hasMatch(value)) {
           addError(error: "Certaines valeurs ne sont pas valides");
           return "";
         }
-            addressController.text = ct;
-            state = null; 
-            }),
-            onStateChanged: (st) => setState(() {
-              state = st;
-              if (st.isEmpty) {
-          addError(error: " le champ adresse est vide");
-          return "";
-        } else if (!wordValidatorRegExp.hasMatch(st)) {
-          addError(error: "Certaines valeurs ne sont pas valides");
-          return "";
-        }
-        addressController.text = ct;
+        addressController.text = value;
         return null;
       },
-     
-   ),
-   inputDecoration: InputDecoration(
-        labelText: "Adresse",
-        hintText:  "Entrez l'adresse",
+      decoration: InputDecoration(
+        labelText: "Pays",
+        hintText: "Saisir votre Pays",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        // suffixIcon:
-        //     CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
+        suffixIcon:
+            CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
       ),
-   );
+    );
+
+
+  //   return  CountryStatePicker(
+  //   countryLabel: Text(""),
+  //   stateLabel: Text(""),
+  //           onCountryChanged: (ct) => setState(() {
+  //            addressController.text = ct;
+  //           country = ct;
+  //           if (ct.isEmpty) {
+  //         addError(error: " le champ adresse est vide");
+  //         return "";
+  //       } else if (!wordValidatorRegExp.hasMatch(ct)) {
+  //         addError(error: "Certaines valeurs ne sont pas valides");
+  //         return "";
+  //       }
+  //           addressController.text = ct;
+  //           state = null; 
+  //           }),
+  //           onStateChanged: (st) => setState(() {
+  //             state = st;
+  //             if (st.isEmpty) {
+  //         addError(error: " le champ adresse est vide");
+  //         return "";
+  //       } else if (!wordValidatorRegExp.hasMatch(st)) {
+  //         addError(error: "Certaines valeurs ne sont pas valides");
+  //         return "";
+  //       }
+  //       addressController.text = ct;
+  //       return null;
+  //     },
+     
+  //  ),
+  //  inputDecoration: InputDecoration(
+  //       labelText: "Adresse",
+  //       hintText:  "Entrez l'adresse",
+  //       // If  you are using latest version of flutter then lable text and hint text shown like this
+  //       // if you r using flutter less then 1.20.* then maybe this is not working properly
+  //       floatingLabelBehavior: FloatingLabelBehavior.always,
+  //       // suffixIcon:
+  //       //     CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
+  //     ),
+  //  );
 
   }
 
