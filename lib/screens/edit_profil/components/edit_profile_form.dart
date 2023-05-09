@@ -1,3 +1,5 @@
+import 'package:country_state_picker/country_state_picker.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +44,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
   String addressFac;
   String userId;
   String genre;
+  String state;
+  String country;
+
   // Profil profil;
   bool isLoading = false;
 
@@ -158,21 +163,24 @@ class _EditProfileFormState extends State<EditProfileForm> {
       key: _formKey,
       child: Column(
         children: [
+         buildgenderFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildfirstNameFormField(firstName),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildLastNameFormField(lastName),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildpwdFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
           buildPhoneNumberFormField(phoneNumber),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildAddressFormField(address),
+          buildEmailFormField(user.email),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildpwdFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildAddressfacturationFormField(addressFac),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildAddressLivraisonFormField(addressLiv),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildgenderFormField(),
+          buildAddressFormField(address),
+          
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
@@ -218,7 +226,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
-  TextFormField buildAddressFormField(addressValue) {
+  TextFormField buildAddressFormField(ct) {
     return TextFormField(
       controller: addressController,
       //initialValue: addressValue,
@@ -238,8 +246,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Adresse",
-        hintText: "Entrez l'adresse",
+        labelText: "Pays",
+        hintText: "Saisir votre Pays",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -247,6 +255,49 @@ class _EditProfileFormState extends State<EditProfileForm> {
             CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
       ),
     );
+
+
+  //   return  CountryStatePicker(
+  //   countryLabel: Text(""),
+  //   stateLabel: Text(""),
+  //           onCountryChanged: (ct) => setState(() {
+  //            addressController.text = ct;
+  //           country = ct;
+  //           if (ct.isEmpty) {
+  //         addError(error: " le champ adresse est vide");
+  //         return "";
+  //       } else if (!wordValidatorRegExp.hasMatch(ct)) {
+  //         addError(error: "Certaines valeurs ne sont pas valides");
+  //         return "";
+  //       }
+  //           addressController.text = ct;
+  //           state = null; 
+  //           }),
+  //           onStateChanged: (st) => setState(() {
+  //             state = st;
+  //             if (st.isEmpty) {
+  //         addError(error: " le champ adresse est vide");
+  //         return "";
+  //       } else if (!wordValidatorRegExp.hasMatch(st)) {
+  //         addError(error: "Certaines valeurs ne sont pas valides");
+  //         return "";
+  //       }
+  //       addressController.text = ct;
+  //       return null;
+  //     },
+     
+  //  ),
+  //  inputDecoration: InputDecoration(
+  //       labelText: "Adresse",
+  //       hintText:  "Entrez l'adresse",
+  //       // If  you are using latest version of flutter then lable text and hint text shown like this
+  //       // if you r using flutter less then 1.20.* then maybe this is not working properly
+  //       floatingLabelBehavior: FloatingLabelBehavior.always,
+  //       // suffixIcon:
+  //       //     CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
+  //     ),
+  //  );
+
   }
 
   TextFormField buildAddressfacturationFormField(addressValue) {
@@ -360,8 +411,17 @@ class _EditProfileFormState extends State<EditProfileForm> {
         if (value.isEmpty) {
           addError(error: "le champ prénom est vide");
           return "";
-        } else if (!wordValidatorRegExp.hasMatch(value)) {
+        } else if (!lastNameValidatorRegExp.hasMatch(value)) {
           addError(error: "Certaines valeurs ne sont pas valides");
+          return "";
+        }
+        if (value.length > 20) {
+          addError(error: "Le champs prenom est limité à 20 caractères");
+          return "";
+        }
+        if (RevertlastNameValidatorRegExp.hasMatch(value)) {
+          addError(
+              error: "Le champs prenom ne prends pas de caractères numériques");
           return "";
         }
         lastNameController.text = value;
@@ -407,6 +467,19 @@ class _EditProfileFormState extends State<EditProfileForm> {
         hintText: "Entrez le nom",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+    TextFormField buildEmailFormField(email) {
+    return TextFormField(
+     initialValue: email,
+     enabled: false,
+      decoration: InputDecoration(
+        labelText: "E-MAIL",
+        hintText:  "Entrez le mail",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),

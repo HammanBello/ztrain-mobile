@@ -89,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+  country_state_picker:
+    dependency: "direct main"
+    description:
+      name: country_state_picker
+      sha256: "9efad370ad2e9b943c69b88d403a361309d90f985bb0404a9a7d54827bd8d779"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   crypto:
     dependency: transitive
     description:

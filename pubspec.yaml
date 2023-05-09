@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  country_state_picker: ^0.0.4
   
   cupertino_icons: ^1.0.5
   flutter_svg: ^2.0.0+1 # help us to use SVG in our app
