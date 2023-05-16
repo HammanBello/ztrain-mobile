@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/models/commande_model.dart';
 
 import '../../constants.dart';
@@ -10,10 +11,15 @@ import '../../models/Product.dart';
 import '../../models/product_dao.dart';
 import '../../size_config.dart';
 
+final f = new DateFormat('ddMMyyyy');
+
 class Display_com extends StatefulWidget {
   final Commande commandeProduct;
-  const Display_com({Key key, this.commandeProduct,})
-      : super(key: key);
+
+  const Display_com({
+    Key key,
+    this.commandeProduct,
+  }) : super(key: key);
 
   @override
   State<Display_com> createState() => _Display_comState();
@@ -63,6 +69,9 @@ class _Display_comState extends State<Display_com> {
                   ),
                   Text(
                     "commande: ${widget.commandeProduct.id}",
+                  ),
+                  Text(
+                    "commande2:  ${widget.commandeProduct.numeroCom}",
                   ),
                   Text(
                     "Statut: ${widget.commandeProduct.status}",

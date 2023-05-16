@@ -41,6 +41,7 @@ dependencies:
   my_app: ^1.0.0
   passwordfield: ^0.1.0
   select_form_field: ^2.2.0
+  intl: ^0.18.1
 
   # flutter_facebook_auth: "^3.5.0"
   # twitter_login: ^4.0.1

@@ -73,13 +73,12 @@ class Commande {
   final List<dynamic> productlist;
   final Timestamp date;
   final String facture;
-  final String numCom;
   final String status;
-
+  final String numeroCom;
   Commande(
       {this.facture,
-      this.numCom,
       this.status,
+      this.numeroCom,
       this.id,
       @required this.userId,
       @required this.productlist,
