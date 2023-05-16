@@ -20,7 +20,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    // loadData();
+    //loadData();
   }
 
   loadData() async {
@@ -36,6 +36,14 @@ class _BodyState extends State<Body> {
     return StreamBuilder<QuerySnapshot>(
         stream: _cartStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
+
           if (snapshot.data != null) {
             carts.clear();
             snapshot.data.docs.forEach((doc) {
