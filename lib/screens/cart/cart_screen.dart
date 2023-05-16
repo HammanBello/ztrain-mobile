@@ -23,7 +23,6 @@ class CartScreen extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Expanded(
             child: Scaffold(
-              
                 appBar: buildAppBar(context),
                 body: Body(),
                 bottomNavigationBar: CheckoutCard(),
