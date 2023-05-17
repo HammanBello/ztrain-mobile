@@ -21,8 +21,11 @@ class ProductDAO extends AbsProductDAO {
       FirebaseFirestore.instance.collection('Favorites');
   final CollectionReference commandesCollection =
       FirebaseFirestore.instance.collection('commandes');
+  final CollectionReference compteurCollection =
+      FirebaseFirestore.instance.collection('compteur');
   final FirebaseAuth auth = FirebaseAuth.instance;
   double amount = 0.0;
+  var incre;
 
   @override
   Future<List<Product>> getAllProduct() async {
@@ -188,6 +191,25 @@ class ProductDAO extends AbsProductDAO {
     return cartCollection.where('userId', isEqualTo: uid).snapshots();
   }
 
+  setIncrementValue(int i) {
+    return compteurCollection.doc('compteur').set({
+      'increment': i + 1,
+    }).then((value) => {print('incrementé')});
+  }
+
+  getIncrementValue() async {
+    var incre;
+    try {
+      await compteurCollection
+          .doc('compteur')
+          .get()
+          .then((value) => {incre = value['increment']});
+    } catch (e) {
+      print(e);
+    }
+    return incre;
+  }
+
   void setAmouunt(double value) async {
     amount = value;
   }
@@ -223,7 +245,14 @@ class ProductDAO extends AbsProductDAO {
     final User user = auth.currentUser;
     final uid = user.uid;
     final String numFacture = "NF" + Random().nextInt(1000).toString();
-    final String numCommande = "ZT" + f.format(DateTime.now());
+    dynamic temp = await ProductDAO().getIncrementValue();
+    int i = temp;
+    // var zeroFilled = await ('000' + temp.toString()).substring(3);
+    while ((temp.toString() + "").length < 3) {
+      temp = "0" + temp.toString();
+    }
+    final String numCommande =
+        "ZT" + f.format(DateTime.now()) + temp.toString();
 
     await cartCollection.where('userId', isEqualTo: uid).get().then((value) {
       print(value.docs.length);
@@ -238,7 +267,7 @@ class ProductDAO extends AbsProductDAO {
             'status': "En cours de livraison",
             'facture': numFacture,
           })
-          .then((value) => {print('Cart Added')})
+          .then((value) => {setIncrementValue(i)})
           .catchError((error) => {print('Failed to add cartd')});
     });
   }

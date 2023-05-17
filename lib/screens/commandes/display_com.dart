@@ -12,6 +12,7 @@ import '../../models/product_dao.dart';
 import '../../size_config.dart';
 
 final f = new DateFormat('ddMMyyyy');
+var tempo;
 
 class Display_com extends StatefulWidget {
   final Commande commandeProduct;
@@ -37,9 +38,11 @@ class _Display_comState extends State<Display_com> {
   void getData() async {
     dynamic receiveProduct = await ProductDAO()
         .getProductById(widget.commandeProduct.productlist[0]['productId']);
+    dynamic temp = await ProductDAO().getIncrementValue();
     if (mounted) {
       setState(() {
         product = receiveProduct;
+        tempo = temp;
       });
     }
   }
@@ -67,11 +70,11 @@ class _Display_comState extends State<Display_com> {
                     date.toUtc().toString(),
                     overflow: TextOverflow.ellipsis,
                   ),
+                  // Text(
+                  //   "commande: ${widget.commandeProduct.id}",
+                  // ),
                   Text(
-                    "commande: ${widget.commandeProduct.id}",
-                  ),
-                  Text(
-                    "commande2:  ${widget.commandeProduct.numeroCom}",
+                    "commande:  ${widget.commandeProduct.numeroCom}",
                   ),
                   Text(
                     "Statut: ${widget.commandeProduct.status}",
