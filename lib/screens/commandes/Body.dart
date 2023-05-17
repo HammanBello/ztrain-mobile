@@ -49,6 +49,9 @@ void _searchFournisseurData(String textSearch) async {
         _resultList.add(commadesPRoducts[i]);
         });
       }
+      else{
+        print("Aucune commande trouver");
+      }
     }
    }
   }
