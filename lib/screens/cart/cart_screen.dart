@@ -34,10 +34,14 @@ class CartScreen extends StatelessWidget {
                                 ProductDAO().deletedFromCard(doc.id);
                               });
                             },
+                            
                             label: Text('vider le panier'),
                             icon: Icon(Icons.delete),
                             backgroundColor: kPrimaryColor,
                           )
+                        
+                
+
                         : null),
           );
         });
