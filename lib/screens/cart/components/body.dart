@@ -17,6 +17,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final Stream<QuerySnapshot> _cartStream = ProductDAO().getCartStream();
   List<Cart> carts = [];
+  var datas = null;
   @override
   void initState() {
     super.initState();
@@ -36,7 +37,7 @@ class _BodyState extends State<Body> {
     return StreamBuilder<QuerySnapshot>(
         stream: _cartStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.data != null) {
+          if (snapshot.data != null && snapshot.data != datas) {
             carts.clear();
             snapshot.data.docs.forEach((doc) {
               Cart cart = Cart(
@@ -48,6 +49,7 @@ class _BodyState extends State<Body> {
               carts.add(cart);
             });
           }
+          datas = snapshot.data;
           return snapshot.data != null && snapshot.data.docs.isEmpty
               ? EmptyCart()
               : Padding(

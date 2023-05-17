@@ -4,11 +4,11 @@ import 'package:shop_app/models/app_tab.dart';
 
 import '../firestoreService/userService.dart';
 
-class  AppStateManager extends ChangeNotifier {
+class AppStateManager extends ChangeNotifier {
   bool _isSplashed = false;
   bool _isLogin = false;
   bool _logInSucess = false;
-  int  _selectedTab = AppTab.home;
+  int _selectedTab = AppTab.home;
   bool _displayProduct = false;
   bool _displayCommandes = false;
   bool _displayCart = false;
@@ -19,7 +19,7 @@ class  AppStateManager extends ChangeNotifier {
   String _lastname = "Inconnu";
 
   bool get isLogin => _isLogin;
-  int  get selectTab => _selectedTab;
+  int get selectTab => _selectedTab;
   bool get logInSucess => _logInSucess;
   bool get isSplashed => _isSplashed;
   bool get displayProduct => _displayProduct;
@@ -28,27 +28,27 @@ class  AppStateManager extends ChangeNotifier {
   bool get displayCommandes => _displayCommandes;
   bool get onCreatingAccout => _onCreatingAccount;
   String get svgSrc {
-    
-    setName(); 
+    setName();
     return _svgSrc;
-    }
+  }
+
   String get lastname {
-    
-    setName(); 
+    setName();
     return _lastname;
-    }
+  }
 
-
-   void setName() async {
+  void setName() async {
     var user = auth.currentUser;
     var genre;
-    final resp = await getUser(user.uid) ; 
-      if(resp.lastName.isNotEmpty){
-        _lastname = resp.lastName;
-        genre = resp.genre;
-      }
-      _svgSrc = genre == 'Monsieur' ?  "assets/icons/man-user-svgrepo-com.svg" : "assets/icons/woman-user-svgrepo-com.svg";
-      notifyListeners();
+    final resp = await getUser(user.uid);
+    if (resp.lastName.isNotEmpty) {
+      _lastname = resp.lastName;
+      genre = resp.genre;
+    }
+    _svgSrc = genre == 'Monsieur'
+        ? "assets/icons/man-user-svgrepo-com.svg"
+        : "assets/icons/woman-user-svgrepo-com.svg";
+    if (!displayCart) notifyListeners();
   }
 
   void plashed() {
@@ -65,7 +65,7 @@ class  AppStateManager extends ChangeNotifier {
     _logInSucess = true;
     notifyListeners();
   }
-  
+
   void loginFalse() {
     print("oui j'ai mis le login à false");
     _logInSucess = false;

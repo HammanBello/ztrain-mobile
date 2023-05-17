@@ -30,32 +30,26 @@ class _BodyState extends State<Body> {
       ProductDAO().getCommandeProdStream();
   List<Commande> commadesPRoducts = [];
   List _resultList = [];
-  
+
   @override
   Widget build(BuildContext context) {
     // ProductDAO productDAO = Provider.of<ProductDAO>(context, listen: true);
 
-
-
-void _searchFournisseurData(String textSearch) async {
-   if(textSearch == ""){
-    setState(() {
-      _resultList.clear();
-    });
-   }else {
-    for (var i = 0; i < commadesPRoducts.length; i++) {
-      if (commadesPRoducts[i].facture == textSearch) {
+    void _searchFournisseurData(String textSearch) async {
+      if (textSearch == "") {
         setState(() {
-        _resultList.add(commadesPRoducts[i]);
+          _resultList.clear();
         });
-      }
-      else{
-        print("Aucune commande trouver");
+      } else {
+        for (var i = 0; i < commadesPRoducts.length; i++) {
+          if (commadesPRoducts[i].facture == textSearch) {
+            setState(() {
+              _resultList.add(commadesPRoducts[i]);
+            });
+          }
+        }
       }
     }
-   }
-  }
-
 
     return StreamBuilder<QuerySnapshot>(
         stream: _commandeStream,
@@ -77,7 +71,7 @@ void _searchFournisseurData(String textSearch) async {
                   productlist: doc['products'],
                   status: doc['status'],
                   facture: doc['facture'],
-                  );
+                  numeroCom: doc['numCommande']);
               commadesPRoducts.add(com);
             });
           }
@@ -91,15 +85,21 @@ void _searchFournisseurData(String textSearch) async {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        RechercheField(searching: _searchFournisseurData,),
+                        RechercheField(
+                          searching: _searchFournisseurData,
+                        ),
                         Expanded(
                           child: ListView.builder(
-                            itemCount:_resultList.length > 0 ? _resultList.length : commadesPRoducts.length,
+                            itemCount: _resultList.length > 0
+                                ? _resultList.length
+                                : commadesPRoducts.length,
                             itemBuilder: (context, index) {
                               print(commadesPRoducts[index].id);
                               return Display_com(
-                                    commandeProduct: _resultList.length > 0 ? _resultList[index] : commadesPRoducts[index],
-                                  );
+                                commandeProduct: _resultList.length > 0
+                                    ? _resultList[index]
+                                    : commadesPRoducts[index],
+                              );
                             },
                           ),
                         ),
