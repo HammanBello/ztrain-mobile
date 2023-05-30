@@ -3,6 +3,10 @@ import 'dart:io';
 import 'dart:math';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+
+
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,6 +41,15 @@ class CheckoutCard extends StatefulWidget {
   
 
 class _CheckoutCardState extends State<CheckoutCard> {
+
+   List quotes = [
+        "fedox",
+        "cpd",
+        "vhl",
+        "zps",
+                ];
+int _index = Random().nextInt(4);
+
   final Stream<QuerySnapshot> cartProducts = ProductDAO().getCartAmount();
   double amount = 0.0;
   List<Cart> carts = [];
@@ -424,6 +437,41 @@ class _CheckoutCardState extends State<CheckoutCard> {
                         child: SvgPicture.asset("assets/icons/receipt.svg"),
                       ),
                       Spacer(),
+
+                      Text.rich(
+                        TextSpan(text: "Livreur:\n", children: [
+                          TextSpan(
+                            // onPressed: _showFate(),
+                            text: quotes[_index],
+                            style: TextStyle(fontSize: 16, color: Colors.black),
+                          ),
+                        ]),
+                      ),
+                     
+                      //   SizedBox(
+                      //   width: getProportionateScreenWidth(100),
+                      //   height: getProportionateScreenWidth(40),
+                      //   child: DefaultButton(
+                      //       text: "data ${livreurCollection.doc()}",
+                            
+                      //       press: () {
+                      //         if (amount == 0.0) {
+                      //           ScaffoldMessenger.of(context).showSnackBar(
+                      //               SnackBar(
+                      //                   content:
+                      //                       Text('votre panier est vide')));
+                      //         } else {
+                      //           print("data ${livreurCollection.doc()}");
+                      //         }
+                      //       },
+                      //       ),
+                      // ),
+
+
+
+
+
+
                     ],
                   ),
                   SizedBox(height: getProportionateScreenHeight(20)),

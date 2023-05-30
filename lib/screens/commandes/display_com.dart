@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/models/commande_model.dart';
 
 import '../../constants.dart';
@@ -10,10 +11,16 @@ import '../../models/Product.dart';
 import '../../models/product_dao.dart';
 import '../../size_config.dart';
 
+final f = new DateFormat('ddMMyyyy');
+var tempo;
+
 class Display_com extends StatefulWidget {
   final Commande commandeProduct;
-  const Display_com({Key key, this.commandeProduct,})
-      : super(key: key);
+
+  const Display_com({
+    Key key,
+    this.commandeProduct,
+  }) : super(key: key);
 
   @override
   State<Display_com> createState() => _Display_comState();
@@ -31,9 +38,11 @@ class _Display_comState extends State<Display_com> {
   void getData() async {
     dynamic receiveProduct = await ProductDAO()
         .getProductById(widget.commandeProduct.productlist[0]['productId']);
+    dynamic temp = await ProductDAO().getIncrementValue();
     if (mounted) {
       setState(() {
         product = receiveProduct;
+        tempo = temp;
       });
     }
   }
@@ -61,8 +70,11 @@ class _Display_comState extends State<Display_com> {
                     date.toUtc().toString(),
                     overflow: TextOverflow.ellipsis,
                   ),
+                  // Text(
+                  //   "commande: ${widget.commandeProduct.id}",
+                  // ),
                   Text(
-                    "commande: ${widget.commandeProduct.id}",
+                    "commande:  ${widget.commandeProduct.numeroCom}",
                   ),
                   Text(
                     "Statut: ${widget.commandeProduct.status}",

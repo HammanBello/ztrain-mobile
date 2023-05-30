@@ -113,6 +113,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+<<<<<<< HEAD
   convert:
     dependency: transitive
     description:
@@ -121,6 +122,16 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+=======
+  country_picker:
+    dependency: "direct main"
+    description:
+      name: country_picker
+      sha256: aa975b41c8052298d227ff7ff58d6eddcad0196127445f72af7456224c9ef104
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.20"
+>>>>>>> d8ebed408a4e6f152f1a72f1da3a56e527957aeb
   country_state_picker:
     dependency: "direct main"
     description:
@@ -465,7 +476,7 @@ packages:
     source: hosted
     version: "4.0.17"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"

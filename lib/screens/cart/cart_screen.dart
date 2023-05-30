@@ -23,7 +23,6 @@ class CartScreen extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Expanded(
             child: Scaffold(
-              
                 appBar: buildAppBar(context),
                 body: Body(),
                 bottomNavigationBar: CheckoutCard(),
@@ -35,10 +34,14 @@ class CartScreen extends StatelessWidget {
                                 ProductDAO().deletedFromCard(doc.id);
                               });
                             },
+                            
                             label: Text('vider le panier'),
                             icon: Icon(Icons.delete),
                             backgroundColor: kPrimaryColor,
                           )
+                        
+                
+
                         : null),
           );
         });

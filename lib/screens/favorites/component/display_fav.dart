@@ -41,7 +41,7 @@ class _DisplayFavState extends State<DisplayFav> {
             child: Row(
               children: [
                 SizedBox(
-                  width: 70,
+                  width: 53,
                   child: AspectRatio(
                     aspectRatio: 0.88,
                     child: Container(
