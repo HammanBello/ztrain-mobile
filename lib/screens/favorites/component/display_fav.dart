@@ -59,7 +59,7 @@ class _DisplayFavState extends State<DisplayFav> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 245,
+                      width: 230,
                       child: Text(
                         product?.title,
                         style: TextStyle(color: Colors.black, fontSize: 16),
