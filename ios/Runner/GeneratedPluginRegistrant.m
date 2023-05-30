@@ -18,6 +18,12 @@
 @import cloud_firestore;
 #endif
 
+#if __has_include(<device_info_plus/FLTDeviceInfoPlusPlugin.h>)
+#import <device_info_plus/FLTDeviceInfoPlusPlugin.h>
+#else
+@import device_info_plus;
+#endif
+
 #if __has_include(<firebase_auth/FLTFirebaseAuthPlugin.h>)
 #import <firebase_auth/FLTFirebaseAuthPlugin.h>
 #else
@@ -48,10 +54,28 @@
 @import google_sign_in_ios;
 #endif
 
+#if __has_include(<open_file/OpenFilePlugin.h>)
+#import <open_file/OpenFilePlugin.h>
+#else
+@import open_file;
+#endif
+
+#if __has_include(<open_file_plus/OpenFilePlugin.h>)
+#import <open_file_plus/OpenFilePlugin.h>
+#else
+@import open_file_plus;
+#endif
+
 #if __has_include(<path_provider_foundation/PathProviderPlugin.h>)
 #import <path_provider_foundation/PathProviderPlugin.h>
 #else
 @import path_provider_foundation;
+#endif
+
+#if __has_include(<pdfx/PdfxPlugin.h>)
+#import <pdfx/PdfxPlugin.h>
+#else
+@import pdfx;
 #endif
 
 #if __has_include(<stripe_payment/StripePaymentPlugin.h>)
@@ -65,12 +89,16 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [AlertPlugin registerWithRegistrar:[registry registrarForPlugin:@"AlertPlugin"]];
   [FLTFirebaseFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseFirestorePlugin"]];
+  [FLTDeviceInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTDeviceInfoPlusPlugin"]];
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FlutterFacebookAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterFacebookAuthPlugin"]];
   [FlutterSecureStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSecureStoragePlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
+  [OpenFilePlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlugin"]];
+  [OpenFilePlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
+  [PdfxPlugin registerWithRegistrar:[registry registrarForPlugin:@"PdfxPlugin"]];
   [StripePaymentPlugin registerWithRegistrar:[registry registrarForPlugin:@"StripePaymentPlugin"]];
 }
 
