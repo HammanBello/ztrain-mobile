@@ -27,7 +27,7 @@ class ZTrain extends StatefulWidget {
 class _ZTrainState extends State<ZTrain> {
   final _appStateManager = AppStateManager();
   final _appProductManager = AppProductManager();
-  AppRouter _appRouter;
+  AppRouter _appRouter; 
 
   @override
   void initState() {
