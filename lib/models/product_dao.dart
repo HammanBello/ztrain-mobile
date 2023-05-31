@@ -241,10 +241,10 @@ class ProductDAO extends AbsProductDAO {
     return data;
   }
 
-  Future<void> addToCommande() async {
+  Future<void> addToCommande(String n) async {
     final User user = auth.currentUser;
     final uid = user.uid;
-    final String numFacture = "NF" + Random().nextInt(1000).toString();
+    final String numFacture =  n;
     dynamic temp = await ProductDAO().getIncrementValue();
     int i = temp;
     // var zeroFilled = await ('000' + temp.toString()).substring(3);

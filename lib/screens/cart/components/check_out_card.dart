@@ -144,9 +144,17 @@ int _index = Random().nextInt(4);
                             PdfFont subHeadingFont = PdfStandardFont(PdfFontFamily.timesRoman, 14);
                             DateTime now = DateTime.now();
                             String date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+                            String time =  DateFormat('kk:mm').format(now);
+                            String datte = DateFormat('yyyy-MM-dd').format(now);
+                            datte = datte.replaceAll(":", "");
+                            datte = datte.replaceAll("-", "");
+                            datte = datte.replaceAll(" ", "");
+                            time = time.replaceAll(":", ""); 
+                            numFacture =  "NF" + Random().nextInt(1000).toString() + datte + time;
+                            numFacture = numFacture.replaceAll(" ", "");
                             //Creates a text element to add the invoice number
                             PdfTextElement element =
-                                PdfTextElement(text: 'FACTURE ', font: subHeadingFont);
+                                PdfTextElement(text: 'FACTURE : ' + numFacture, font: subHeadingFont);
                             element.brush = PdfBrushes.white;
 
                             //Draws the heading on the page
@@ -358,7 +366,7 @@ int _index = Random().nextInt(4);
     /// retrieve data from the backend
     StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest())
         .then((paymentMethod) async {
-        await ProductDAO().addToCommande();
+        await ProductDAO().addToCommande(numFacture);
         
       carts.forEach((element)  {
         Products.add(element);
