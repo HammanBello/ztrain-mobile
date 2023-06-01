@@ -154,11 +154,12 @@ class ProductDAO extends AbsProductDAO {
   Future<void> setIsFavorite(String productId) async {
     final User user = auth.currentUser;
     final uid = user.uid;
+    dynamic data = favoritesCollection.where('userId', isEqualTo: uid).snapshots();
     bool exit = false;
     String docId;
 
     await favoritesCollection
-        .where('productId', isEqualTo: productId)
+        .where('productId', isEqualTo: productId).where('userId', isEqualTo: uid)
         .get()
         .then((value) => {
               if (value.docs.length == 1)
