@@ -60,8 +60,8 @@
 @import open_file;
 #endif
 
-#if __has_include(<open_file_plus/OpenFilePlugin.h>)
-#import <open_file_plus/OpenFilePlugin.h>
+#if __has_include(<open_file_plus/OpenFilePlusPlugin.h>)
+#import <open_file_plus/OpenFilePlusPlugin.h>
 #else
 @import open_file_plus;
 #endif
@@ -96,7 +96,7 @@
   [FlutterSecureStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSecureStoragePlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [OpenFilePlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlugin"]];
-  [OpenFilePlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlugin"]];
+  [OpenFilePlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlusPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
   [PdfxPlugin registerWithRegistrar:[registry registrarForPlugin:@"PdfxPlugin"]];
   [StripePaymentPlugin registerWithRegistrar:[registry registrarForPlugin:@"StripePaymentPlugin"]];
