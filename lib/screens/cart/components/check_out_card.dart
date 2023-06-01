@@ -340,13 +340,13 @@ int _index = Random().nextInt(4);
                             final path = directory.path;
 
                             //Create an empty file to write PDF data
-                            File file = File('$path/Facture.pdf');
+                            File file = File('$path/Facture_'+ numFacture+'.pdf');
 
                             //Write PDF data
                             await file.writeAsBytes(bytes, flush: true);
 
                             //Open the PDF document in mobile
-                            OpenFile.open('$path/Facture.pdf');
+                            OpenFile.open('$path/Facture_'+ numFacture+'.pdf');
                         },
                         //press: () => {Navigator.pop(context)}
                         // Navigator.pushNamed(context, HomeScreen.routeName),
