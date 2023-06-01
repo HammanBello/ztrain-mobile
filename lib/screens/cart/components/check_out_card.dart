@@ -312,17 +312,17 @@ int _index = Random().nextInt(4);
                                 format: layoutFormat)/*!*/;
 
                             gridResult.page.graphics.drawString(
-                                'Grand Total en euros :                         ${Total.toStringAsFixed(2)}', subHeadingFont,
+                                'Grand Total en euros :                                                 ${Total.toStringAsFixed(2)}', subHeadingFont,
                                 brush: PdfSolidBrush(PdfColor(126, 155, 203)),
                                 bounds: Rect.fromLTWH(400, gridResult.bounds.bottom + 30, 0, 0));
 
                             gridResult.page.graphics.drawString(
-                                'TVA 20% en euros :                            ${TotalTVA.toStringAsFixed(2)}', subHeadingFont,
+                                'TVA 20% en euros :                                                    ${TotalTVA.toStringAsFixed(2)}', subHeadingFont,
                                 brush: PdfSolidBrush(PdfColor(126, 155, 203)),
                                 bounds: Rect.fromLTWH(400, gridResult.bounds.bottom + 60, 0, 0));
 
                             gridResult.page.graphics.drawString(
-                                'Montant à Payer  en euros :                 ${Totalapayer.toStringAsFixed(2)}', subHeadingFont,
+                                'Montant à Payer  en euros :                                         ${Totalapayer.toStringAsFixed(2)}', subHeadingFont,
                                 brush: PdfSolidBrush(PdfColor(126, 155, 203)),
                                 bounds: Rect.fromLTWH(400, gridResult.bounds.bottom + 90, 0, 0));
 
