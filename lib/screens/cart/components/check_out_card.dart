@@ -263,9 +263,9 @@ int _index = Random().nextInt(4);
                             for (int i = 0; i < products.length; i++) {
                                 Product p = await ProductDAO().getProductById(products[i].productId);
                                 row.cells[0].value = p.title;
-                                row.cells[1].value = products[i].price.toString();
+                                row.cells[1].value = products[i].price.toStringAsFixed(2);
                                 row.cells[2].value = products[i].quantity.toString();
-                                row.cells[3].value = (products[i].quantity * products[i].price).toString();
+                                row.cells[3].value = (products[i].quantity * products[i].price).toStringAsFixed(2);
                                 Total = Total + products[i].quantity * products[i].price;
                                 row = grid.rows.add();
                               }
@@ -312,17 +312,17 @@ int _index = Random().nextInt(4);
                                 format: layoutFormat)/*!*/;
 
                             gridResult.page.graphics.drawString(
-                                'Grand Total en euros :                         $Total', subHeadingFont,
+                                'Grand Total en euros :                         ${Total.toStringAsFixed(2)}', subHeadingFont,
                                 brush: PdfSolidBrush(PdfColor(126, 155, 203)),
                                 bounds: Rect.fromLTWH(400, gridResult.bounds.bottom + 30, 0, 0));
 
                             gridResult.page.graphics.drawString(
-                                'TVA 20% en euros :                            $TotalTVA', subHeadingFont,
+                                'TVA 20% en euros :                            ${TotalTVA.toStringAsFixed(2)}', subHeadingFont,
                                 brush: PdfSolidBrush(PdfColor(126, 155, 203)),
                                 bounds: Rect.fromLTWH(400, gridResult.bounds.bottom + 60, 0, 0));
 
                             gridResult.page.graphics.drawString(
-                                'Montant à Payer  en euros :                 $Totalapayer', subHeadingFont,
+                                'Montant à Payer  en euros :                 ${Totalapayer.toStringAsFixed(2)}', subHeadingFont,
                                 brush: PdfSolidBrush(PdfColor(126, 155, 203)),
                                 bounds: Rect.fromLTWH(400, gridResult.bounds.bottom + 90, 0, 0));
 
