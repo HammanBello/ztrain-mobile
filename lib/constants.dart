@@ -31,13 +31,11 @@ final RegExp RevertlastNameValidatorRegExp = RegExp(r"[0-9]+");
 //final RegExp numtelValidatorRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
 final RegExp numtelValidatorRegExp = RegExp(r'(^(?:[+0])?[0-9]{9,12}$)');
 final RegExp revertnumtelValidatorRegExp = RegExp(r'[^0-9+]+');
-final RegExp passwordRegex =
-    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+final RegExp passwordRegex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$');
 const String kEmailNullError = "Veuillez entrer votre email";
 const String kInvalidEmailError = "Veuillez entrer une adresse email valide";
 const String kPassNullError = "Veuillez entrer votre mot de passe";
-const String kShortPassError =
-    "Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 miniscule et un chiffre ";
+const String kShortPassError ="Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 miniscule et un chiffre ";
 const String kMatchPassError = "Les mots de passe ne sont pas identique";
 const String kNamelNullError = "Veuillez entrer votre nom";
 const String kPhoneNumberNullError =
