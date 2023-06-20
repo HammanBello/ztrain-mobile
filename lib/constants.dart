@@ -30,7 +30,7 @@ final RegExp lastNameValidatorRegExp = RegExp(r"^[\s\'\-\.a-zA-Z^0-9]{3,20}$");
 final RegExp RevertlastNameValidatorRegExp = RegExp(r"[0-9]+");
 //final RegExp numtelValidatorRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
 final RegExp numtelValidatorRegExp = RegExp(r'(^(?:[+0])?[0-9]{9,12}$)');
-final RegExp RevertnumtelValidatorRegExp = RegExp(r'[^0-9+]+');
+final RegExp revertnumtelValidatorRegExp = RegExp(r'[^0-9+]+');
 final RegExp passwordRegex =
     RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 const String kEmailNullError = "Veuillez entrer votre email";
