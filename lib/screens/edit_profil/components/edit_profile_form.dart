@@ -386,6 +386,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
         // } else
         if (!numtelValidatorRegExp.hasMatch(value)) {
           addError(error: "Certaines valeurs ne sont pas valides");
+          addError(error: "Les caractères spéciaux ne sont pas permis pour le numéro de téléphone");
+          return "";
+        }
+        if (!revertnumtelValidatorRegExp.hasMatch(value)) {
+          addError(error: "Les caractères spéciaux ne sont pas permis pour le numéro de téléphone");
           return "";
         }
         phoneNumberController.text = value;

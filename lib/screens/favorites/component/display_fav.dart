@@ -41,7 +41,7 @@ class _DisplayFavState extends State<DisplayFav> {
             child: Row(
               children: [
                 SizedBox(
-                  width: 70,
+                  width: 53,
                   child: AspectRatio(
                     aspectRatio: 0.88,
                     child: Container(
@@ -59,7 +59,7 @@ class _DisplayFavState extends State<DisplayFav> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 245,
+                      width: 230,
                       child: Text(
                         product?.title,
                         style: TextStyle(color: Colors.black, fontSize: 16),

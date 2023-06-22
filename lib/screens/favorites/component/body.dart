@@ -46,7 +46,7 @@ class _BodyState extends State<Body> {
           return snapshot.data.docs.isNotEmpty
               ? Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(20)),
+                      horizontal: getProportionateScreenWidth(12)),
                   child: ListView.builder(
                     itemCount: favoritePRoducts.length,
                     itemBuilder: (context, index) {

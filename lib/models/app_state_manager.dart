@@ -48,7 +48,7 @@ class AppStateManager extends ChangeNotifier {
     _svgSrc = genre == 'Monsieur'
         ? "assets/icons/man-user-svgrepo-com.svg"
         : "assets/icons/woman-user-svgrepo-com.svg";
-    if (!displayCart) notifyListeners();
+    if (!displayCart) if (!displayCart) notifyListeners();
   }
 
   void plashed() {
