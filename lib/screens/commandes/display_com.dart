@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_app/models/commande_model.dart';
+import 'package:shop_app/screens/commandes/details_com.dart';
 
 import '../../constants.dart';
 import '../../models/Product.dart';
@@ -37,6 +38,9 @@ class _Display_comState extends State<Display_com> {
   void getData() async {
     dynamic receiveProduct = await ProductDAO()
         .getProductById(widget.commandeProduct.productlist[0]['productId']);
+        print("====================");
+        print(receiveProduct);
+        print("====================");
     if (mounted) {
       setState(() {
         product = receiveProduct;
@@ -52,7 +56,11 @@ class _Display_comState extends State<Display_com> {
     return product == null
         ? Center(child: CircularProgressIndicator())
         : ListTile(
-            leading: Image.network(product.images[0]),
+          // ignore: unnecessary_statements
+          trailing: IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  DetailsCom(productlist: widget.commandeProduct.productlist,),),);
+          }, icon: Icon(Icons.add_circle),),
+            // leading: Image.network(product.images[0]),
             title: Text(
               "Numéro de facture : " + widget.commandeProduct.facture,
               overflow: TextOverflow.ellipsis,
