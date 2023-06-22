@@ -49,6 +49,9 @@ class _Display_comState extends State<Display_com> {
         tempo = temp;
       });
     }
+
+ 
+
   }
 
   @override

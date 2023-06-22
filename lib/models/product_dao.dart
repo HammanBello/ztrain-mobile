@@ -245,15 +245,20 @@ class ProductDAO extends AbsProductDAO {
   Future<void> addToCommande(String n) async {
     final User user = auth.currentUser;
     final uid = user.uid;
-    final String numFacture = n;
+    // final String numFacture = n;
+    
     dynamic temp = await ProductDAO().getIncrementValue();
     int i = temp;
+    int intValue = Random().nextInt(8999) + 1000; // Value is >= 50 and < 150.
+    final String numFacture = "NF" + intValue.toString();
+    
     // var zeroFilled = await ('000' + temp.toString()).substring(3);
     while ((temp.toString() + "").length < 3) {
       temp = "0" + temp.toString();
     }
     final String numCommande =
-        "ZT" + f.format(DateTime.now()) + temp.toString();
+        "ZTS" + f.format(DateTime.now()) + temp.toString();
+          // "ZT" + f.format(DateTime.now()) + intValue.toString();
 
     await cartCollection.where('userId', isEqualTo: uid).get().then((value) {
       print(value.docs.length);
