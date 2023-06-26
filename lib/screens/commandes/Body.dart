@@ -94,7 +94,7 @@ class _BodyState extends State<Body> {
                                 ? _resultList.length
                                 : commadesPRoducts.length,
                             itemBuilder: (context, index) {
-                              print(commadesPRoducts[index].id);
+                            
                               return Display_com(
                                 commandeProduct: _resultList.length > 0
                                     ? _resultList[index]

@@ -48,7 +48,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
         "vhl",
         "zps",
                 ];
-int _index = Random().nextInt(4);
+int _index = Random().nextInt(4); 
 
   final Stream<QuerySnapshot> cartProducts = ProductDAO().getCartAmount();
   double amount = 0.0;
